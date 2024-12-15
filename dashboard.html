@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terminal Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="terminal-theme">
+    <div class="terminal-container">
+        <header>
+            <h1>The Last Hope Terminal</h1>
+        </header>
+
+        <!-- Emergency Broadcast Section -->
+        <section id="broadcast">
+            <h2>📢 Emergency Broadcast from Admin</h2>
+            <div id="broadcastArea">No messages yet...</div>
+            <textarea id="broadcastInput" placeholder="Type a broadcast message"></textarea>
+            <button id="sendBroadcastButton" onclick="sendBroadcast()" style="display: none;">Send Broadcast</button>
+        </section>
+
+        <!-- Chat System -->
+        <section id="chat">
+            <h2>💬 Chat with Civilians</h2>
+            <button onclick="startChat()">Start a Chat</button>
+        </section>
+
+        <!-- Discord Webhook Section -->
+        <section id="discord">
+            <h2>🔗 Connect With Discord</h2>
+            <button id="connectDiscord" onclick="redirectToWebhook()" title="Connect with Discord">
+                🕹️ Connect
+            </button>
+        </section>
+
+        <!-- Resource Trading Section -->
+        <section id="resource">
+            <h2>📦 Resource Trading</h2>
+            <p>Manage your resources by visiting the trading page:</p>
+            <button onclick="window.location.href='resource.html'" class="terminal-button">
+                🚀 Go to Resource Page
+            </button>
+        </section>
+
+        <!-- Survival Zones Section -->
+        <section id="zones">
+            <h2>🗺️ Survival Zones</h2>
+            <p>Coming Soon...</p>
+        </section>
+    </div>
+
+    <script>
+        function startChat() {
+            window.location.href = "chat.html";
+        }
+
+        function redirectToWebhook() {
+            window.location.href = "webhook.html"; // Redirect to webhook setup page
+        }
+    </script>
+</body>
+</html>

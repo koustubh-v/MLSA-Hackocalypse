@@ -1,0 +1,183 @@
+/* Reset Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Courier New', monospace;
+}
+
+body {
+    background-color: #000;
+    color: #00ff00; /* Terminal green */
+    line-height: 1.6;
+}
+
+.terminal-theme {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.terminal-container {
+    width: 90%;
+    max-width: 800px;
+    margin: 20px auto;
+    border: 2px solid #00ff00;
+    padding: 10px;
+    background: #111;
+    box-shadow: 0 0 10px #00ff00;
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 10px;
+}
+
+h2 {
+    margin-top: 20px;
+}
+
+.toggle-buttons {
+    margin-bottom: 20px;
+}
+
+.toggle-buttons button {
+    background: transparent;
+    border: 1px solid #00ff00;
+    color: #00ff00;
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+    width: 200px;
+    font-family: monospace;
+}
+
+.toggle-buttons button:hover {
+    background: #00ff00;
+    color: #111;
+}
+
+.trading-section {
+    display: none;
+    margin-top: 20px;
+}
+
+button {
+    background: transparent;
+    border: 1px solid #00ff00;
+    color: #fff;
+    padding: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+    width: 100%;
+    font-family: monospace;
+}
+
+button:hover {
+    background: #00ff00;
+    color: #000000;
+}
+
+.form-group {
+    margin: 10px 0;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: 8px;
+    background: #000;
+    border: 1px solid #00ff00;
+    color: #00ff00;
+    outline: none;
+}
+
+textarea {
+    resize: none;
+}
+
+#resourcesList {
+    margin-top: 20px;
+}
+
+.resource-item {
+    padding: 10px;
+    border: 1px solid #00ff00;
+    margin-bottom: 10px;
+    background: #111;
+    text-align: left;
+}
+
+/* General styles for resource */
+.resource {
+    background-color: #111;
+    border: 2px solid #00ff00;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px #00ff00;
+    color: #00ff00;
+}
+
+.resource img {
+    max-width: 100%;
+    height: auto;
+    border: 2px solid #00ff00;
+}
+
+.resource-name {
+    font-size: 1.5rem;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.resource-details {
+    font-size: 1rem;
+    margin: 10px 0;
+}
+
+/* Resource Type Styles */
+.resource-type {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-family: 'Courier New', monospace;
+    border: 1px solid #00ff00; /* Terminal-like border */
+    margin: 2px;
+    text-transform: uppercase; /* Make resource type uppercase */
+}
+
+/* Health type */
+.resource-type.health {
+    background-color: #ff4d4d; /* Red background for health */
+    color: #fff; /* White text */
+}
+
+/* Tech type */
+.resource-type.tech {
+    background-color: #3399ff; /* Blue background for tech */
+    color: #fff; /* White text */
+}
+
+/* Food type */
+.resource-type.food {
+    background-color: #66ff66; /* Green background for food */
+    color: #000; /* Black text */
+}
+
+/* Equipment type */
+.resource-type.equipment {
+    background-color: #ffcc00; /* Yellow background for equipment */
+    color: #000; /* Black text */
+}
+
+/* Other types */
+.resource-type.other {
+    background-color: #ffff66; /* Yellow background for other */
+    color: #000; /* Black text */
+}

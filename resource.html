@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resource Trading</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="terminal-theme">
+    <div class="terminal-container">
+        <header>
+            <h1>Resource Trading</h1>
+        </header>
+
+        <!-- Buttons to Toggle Between Buying and Selling -->
+        <div class="toggle-buttons">
+            <button onclick="showSection('selling')">Sell Resources</button>
+            <button onclick="showSection('buying')">Buy Resources</button>
+        </div>
+
+        <!-- Selling Section -->
+        <section id="selling" class="trading-section">
+            <h2>Sell Your Resources</h2>
+            <form id="addResourceForm">
+                <div class="form-group">
+                    <label for="resourceName">Resource Name</label>
+                    <input type="text" id="resourceName" placeholder="Enter resource name" required>
+                </div>
+                <div class="form-group">
+                    <label for="resourceImage">Image URL</label>
+                    <input type="text" id="resourceImage" placeholder="Enter image URL" required>
+                </div>
+                <div class="form-group">
+                    <label for="resourceDetails">Details</label>
+                    <textarea id="resourceDetails" placeholder="Enter resource details" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="resourceType">Resource Type</label>
+                    <select id="resourceType" required>
+                        <option value="health">Health</option>
+                        <option value="tech">Tech</option>
+                        <option value="food">Food</option>
+                        <option value="equipment">Equipment</option>
+                    </select>
+                </div>
+                <button type="submit">Add Resource</button>
+            </form>
+        </section>
+
+        <!-- Buying Section -->
+        <section id="buying" class="trading-section" style="display: none;">
+            <h2>Available Resources</h2>
+            <div id="resourcesList">
+                <!-- Resources will be displayed here -->
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Function to toggle between Buying and Selling sections
+        function showSection(section) {
+            const sellingSection = document.getElementById('selling');
+            const buyingSection = document.getElementById('buying');
+
+            if (section === 'selling') {
+                sellingSection.style.display = 'block';
+                buyingSection.style.display = 'none';
+            } else {
+                sellingSection.style.display = 'none';
+                buyingSection.style.display = 'block';
+                loadResources();  // Fetch and display resources when buying section is shown
+            }
+        }
+
+        // Handle Resource Form Submission
+        document.getElementById('addResourceForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent page refresh
+
+            const name = document.getElementById('resourceName').value;
+            const image = document.getElementById('resourceImage').value;
+            const details = document.getElementById('resourceDetails').value;
+            const type = document.getElementById('resourceType').value;
+
+            // Get the token from localStorage (assuming it's saved there after login)
+            const token = localStorage.getItem('authToken'); 
+
+            if (!token) {
+                alert('You must be logged in to add a resource.');
+                return;
+            }
+
+            // Send resource data to the server using fetch API
+            fetch('http://localhost:5000/api/resources', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`  // Pass token as Bearer token in the Authorization header
+                },
+                body: JSON.stringify({ resource: { name, image, details, type } }), // Do not include token in body
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Resource added successfully!');
+                    showSection('buying'); // Switch to buying section after adding
+                } else {
+                    alert('Failed to add resource.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error adding resource.');
+            });
+        });
+
+        // Function to load available resources for buying
+        function loadResources() {
+            fetch('http://localhost:5000/api/resources', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success && data.resources) {
+                    const resourcesList = document.getElementById('resourcesList');
+                    resourcesList.innerHTML = ''; // Clear previous resources
+
+                    // Loop through the resources and display them
+                    data.resources.forEach(resource => {
+                        const resourceItem = document.createElement('div');
+                        resourceItem.classList.add('resource-item');
+                        resourceItem.innerHTML = `
+                            <h3>${resource.name}</h3>
+                            <img src="${resource.image}" alt="${resource.name}" />
+                            <p>${resource.details}</p>
+                            <p><strong>Type:</strong> ${resource.type}</p>
+                        `;
+                        resourcesList.appendChild(resourceItem);
+                    });
+                } else {
+                    alert('Failed to load resources.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error loading resources.');
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terminal Chat System</title>
+    <link rel="stylesheet" href="chat_style.css">
+</head>
+<body class="terminal-theme">
+    <div class="chat-container">
+        <header class="chat-header">
+            <h2>💬 Terminal Chat</h2>
+            <a href="dashboard.html" class="back-button">⬅ Back</a>
+        </header>
+        <div id="chatArea" class="chat-box"></div>
+        <div class="chat-input-container">
+            <span class="terminal-prefix">></span>
+            <input type="text" id="chatInput" placeholder="Type your message..." autofocus>
+            <button id="sendButton">Send</button>
+        </div>
+    </div>
+
+    <!-- Socket.IO -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.1/socket.io.min.js"></script>
+    <script>
+        const socket = io("http://localhost:5000"); // Update with your server URL
+        const chatArea = document.getElementById("chatArea");
+        const chatInput = document.getElementById("chatInput");
+        const sendButton = document.getElementById("sendButton");
+
+        const username = prompt("Enter your name:") || "Anonymous"; // Get sender name
+
+        // Send message to server
+        sendButton.addEventListener("click", sendMessage);
+        chatInput.addEventListener("keypress", (e) => {
+            if (e.key === "Enter") sendMessage();
+        });
+
+        function sendMessage() {
+            const message = chatInput.value.trim();
+            if (message) {
+                socket.emit("chatMessage", { sender: username, message }); // Send to server
+                chatInput.value = ""; // Clear input
+            }
+        }
+
+        // Receive message from server
+        socket.on("chatMessage", ({ sender, message }) => {
+            appendMessage(sender, message, sender === username ? "sender" : "receiver");
+        });
+
+        // Append message to chat area
+        function appendMessage(sender, message, type) {
+            const messageDiv = document.createElement("div");
+            messageDiv.classList.add("message", type);
+            messageDiv.innerHTML = `<span class="sender-name">${sender}:</span> ${message}`;
+            chatArea.appendChild(messageDiv);
+            chatArea.scrollTop = chatArea.scrollHeight; // Auto-scroll
+        }
+    </script>
+</body>
+</html>

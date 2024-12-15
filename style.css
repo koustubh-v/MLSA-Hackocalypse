@@ -1,0 +1,99 @@
+/* Reset Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Courier New', monospace;
+}
+
+body {
+    background-color: #000;
+    color: #00ff00; /* Terminal green */
+    line-height: 1.6;
+}
+
+.terminal-theme {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    text-align: center;
+    border: 2px solid #00ff00;
+    padding: 20px;
+    max-width: 400px;
+    width: 100%;
+    background: #111;
+    box-shadow: 0 0 10px #00ff00;
+}
+
+h1 {
+    margin-bottom: 10px;
+}
+
+.subtext {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin: 10px 0;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    background: #000;
+    border: 1px solid #00ff00;
+    color: #00ff00;
+    outline: none;
+}
+
+button {
+    background: transparent;
+    border: 1px solid #00ff00; 
+    color: #fff; /* Changed text color to white */
+    padding: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+    width: 100%;
+    font-family: monospace; /* Added monospace font for terminal look */
+  }
+  
+  button:hover {
+    background: #00ff00; 
+    color: #000000;
+  }
+
+.terminal-container {
+    width: 90%;
+    max-width: 800px;
+    margin: 20px auto;
+    border: 2px solid #00ff00;
+    padding: 10px;
+    background: #111;
+    box-shadow: 0 0 10px #00ff00;
+}
+
+section {
+    margin-bottom: 20px;
+}
+
+textarea, input {
+    width: 100%;
+    padding: 8px;
+    background: #000;
+    border: 1px solid #00ff00;
+    color: #00ff00;
+    resize: none;
+    outline: none;
+    margin-top: 10px;
+}
+
